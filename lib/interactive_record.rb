@@ -28,9 +28,15 @@ class InteractiveRecord
 
   def self.find_by(hash)
     # binding.pry
-    name = hash.values[0]
-    grade = hash.values[1]
-    find_by_name(name)
+    value = hash.values[0]
+    formatted_value = nil
+    
+    if value.class == Fixnum
+      formatted_value = value
+    else
+      formatted_value = "'#{value}'"
+    end
+    find_by_name(formatted_value)
     # binding.pry
     # sql = <<-SQL
     # SELECT * FROM #{self.table_name} WHERE name = ?
