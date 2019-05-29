@@ -30,7 +30,7 @@ class InteractiveRecord
     # binding.pry
     value = hash.values[0]
     formatted_value = nil
-    
+
     if value.class == Fixnum
       formatted_value = value
     else
