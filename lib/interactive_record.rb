@@ -17,14 +17,14 @@ class InteractiveRecord
     "#{self.to_s.downcase.pluralize}"
   end
   #
-  # def self.find_by_name(name)
-  #   sql = <<-SQL
-  #   SELECT * FROM #{self.table_name} WHERE name = ?
-  #   SQL
-  #
-  #   rows = DB[:conn].execute(sql, name)
-  #   self.reify_from_row(rows.first)
-  # end
+  def self.find_by_name(name)
+    sql = <<-SQL
+    SELECT * FROM #{self.table_name} WHERE name = ?
+    SQL
+
+    rows = DB[:conn].execute(sql, name)
+    self.reify_from_row(rows.first)
+  end
   #
   # def self.reify_from_row(row)
   #   self.new.tap do |p|
