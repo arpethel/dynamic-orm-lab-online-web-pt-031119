@@ -28,13 +28,13 @@ class InteractiveRecord
 
   def self.find_by(hash)
     # binding.pry
-    name = hash.keys
-    binding.pry
-    sql = <<-SQL
-    SELECT * FROM #{self.table_name} WHERE name = ?
-    SQL
-
-    DB[:conn].execute(sql, name)
+    name = hash.values[0]
+    # binding.pry
+    # sql = <<-SQL
+    # SELECT * FROM #{self.table_name} WHERE name = ?
+    # SQL
+    #
+    # DB[:conn].execute(sql, name)
     # self.reify_from_row(rows.first)
   end
   #
