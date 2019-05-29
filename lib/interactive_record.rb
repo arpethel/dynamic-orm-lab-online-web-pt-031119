@@ -22,8 +22,8 @@ class InteractiveRecord
     SELECT * FROM #{self.table_name} WHERE name = ?
     SQL
 
-    rows = DB[:conn].execute(sql, name)
-    self.reify_from_row(rows.first)
+    DB[:conn].execute(sql, name)
+    # self.reify_from_row(rows.first)
   end
   #
   # def self.reify_from_row(row)
