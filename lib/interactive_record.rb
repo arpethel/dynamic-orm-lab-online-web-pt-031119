@@ -3,11 +3,11 @@ require 'active_support/inflector'
 require 'pry'
 
 class InteractiveRecord
-  ATTRIBUTES = {
-    :id => "INTEGER PRIMARY KEY",
-    :name => "TEXT",
-    :grade => "INTEGER"
-  }
+  # ATTRIBUTES = {
+  #   :id => "INTEGER PRIMARY KEY",
+  #   :name => "TEXT",
+  #   :grade => "INTEGER"
+  # }
   #
   # ATTRIBUTES.keys.each do |attribute_name|
   #   attr_accessor attribute_name
