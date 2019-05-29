@@ -31,13 +31,23 @@ class InteractiveRecord
     value = hash.values[0]
     formatted_value = nil
 
+
+
     if value.class == Integer
       # binding.pry
       formatted_value = value
     else
       formatted_value = "'#{value}'"
     end
-    find_by_name(formatted_value)
+    # find_by_name(formatted_value)
+
+    sql = <<-SQL
+      SELECT *
+      FROM #{self.table_name}
+      WHERE #{hash.keys.first} = ?
+    SQL
+
+    DB[:conn].execute(sql, formatted_value)
     # binding.pry
     # sql = <<-SQL
     # SELECT * FROM #{self.table_name} WHERE name = ?
