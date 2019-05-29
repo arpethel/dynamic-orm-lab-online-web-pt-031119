@@ -37,7 +37,7 @@ class InteractiveRecord
       # binding.pry
       formatted_value = value
     else
-      formatted_value = "'#{value}'"
+      formatted_value = "#{value}"
     end
     # find_by_name(formatted_value)
 
