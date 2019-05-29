@@ -3,43 +3,28 @@ require 'active_support/inflector'
 require 'pry'
 
 class InteractiveRecord
-  # ATTRIBUTES = {
-  #   :id => "INTEGER PRIMARY KEY",
-  #   :name => "TEXT",
-  #   :grade => "INTEGER"
-  # }
-  #
-  # ATTRIBUTES.keys.each do |attribute_name|
-  #   attr_accessor attribute_name
-  # end
-  #
+
   def self.table_name
     "#{self.to_s.downcase.pluralize}"
   end
-  #
+
   def self.find_by_name(name)
     sql = <<-SQL
     SELECT * FROM #{self.table_name} WHERE name = ?
     SQL
 
     DB[:conn].execute(sql, name)
-    # self.reify_from_row(rows.first)
   end
 
   def self.find_by(hash)
-    # binding.pry
     value = hash.values[0]
     formatted_value = nil
 
-
-
     if value.class == Integer
-      # binding.pry
       formatted_value = value
     else
       formatted_value = "#{value}"
     end
-    # find_by_name(formatted_value)
 
     sql = <<-SQL
       SELECT *
@@ -48,50 +33,8 @@ class InteractiveRecord
     SQL
 
     DB[:conn].execute(sql, formatted_value)
-    # binding.pry
-    # sql = <<-SQL
-    # SELECT * FROM #{self.table_name} WHERE name = ?
-    # SQL
-    #
-    # DB[:conn].execute(sql, name)
-    # self.reify_from_row(rows.first)
   end
-  #
-  # def self.reify_from_row(row)
-  #   self.new.tap do |p|
-  #     ATTRIBUTES.keys.each.with_index do |attribute_name, i|
-  #       p.send("#{attribute_name}=", row[i])
-  #     end
-  #   end
-  # end
-  #
-  # def self.create_sql
-  #   ATTRIBUTES.collect{|attribute_name, schema| "#{attribute_name}" "#{schema}"}.join(",")
-  # end
-  #
-  # def self.create_table
-  #   sql = <<-SQL
-  #     CREATE TABLE IF NOT EXISTS #{self.table_name} (
-  #       #{self.create_sql}
-  #     )
-  #   SQL
-  #
-  #   DB[:conn].execute(sql)
-  # end
-  #
-  # def ==(other_post)
-  #   self.id == other_post.id
-  # end
-  #
-  # def save
-  #   persisted? ? update : insert
-  # end
-  #
 
-  # def persisted?
-  #   !!self.id
-  # end
-  #
   def table_name_for_insert
     "#{self.class.table_name}"
   end
@@ -101,19 +44,6 @@ class InteractiveRecord
     DB[:conn].execute(sql)
     @id = DB[:conn].execute("SELECT last_insert_rowid() FROM #{table_name_for_insert}")[0][0]
   end
-  #
-  # def attribute_name_for_insert
-  #   ATTRIBUTES.keys[1..-1].join(",")
-  # end
-
-  # def insert
-  #   sql = <<-SQL
-  #     INSERT INTO #{self.class.table_name_for_insert} (#{self.class.attribute_name_for_insert}) VALUES (#{values_for_insert})
-  #   SQL
-  #   # binding.pry
-  #   DB[:conn].execute(sql)
-  #   @id = DB[:conn].execute("SELECT last_insert_rowid() FROM #{table_name_for_insert}")[0][0]
-  # end
 
   def self.column_names
     DB[:conn].results_as_hash = true
@@ -144,15 +74,5 @@ class InteractiveRecord
       values << "'#{send(col_name)}'" unless send(col_name).nil?
     end
     vv = values.join(", ")
-    # binding.pry
   end
-
-
-
-
-
-
-
-
-
 end
