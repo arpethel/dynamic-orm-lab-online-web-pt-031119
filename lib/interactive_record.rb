@@ -29,6 +29,7 @@ class InteractiveRecord
   def self.find_by(hash)
     # binding.pry
     name = hash.values[0]
+    find_by_name(name)
     # binding.pry
     # sql = <<-SQL
     # SELECT * FROM #{self.table_name} WHERE name = ?
